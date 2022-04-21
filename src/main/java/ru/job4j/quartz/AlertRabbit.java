@@ -2,8 +2,6 @@ package ru.job4j.quartz;
 
 import org.quartz.*;
 import org.quartz.impl.StdSchedulerFactory;
-
-import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
@@ -13,33 +11,31 @@ import static org.quartz.TriggerBuilder.*;
 import static org.quartz.SimpleScheduleBuilder.*;
 
 public class AlertRabbit {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
+        String propValue = new AlertRabbit().getProperties().getProperty("rabbit.interval");
         try {
             Scheduler scheduler = StdSchedulerFactory.getDefaultScheduler();
             scheduler.start();
             JobDetail job = newJob(Rabbit.class).build();
             SimpleScheduleBuilder times = simpleSchedule()
-                    .withIntervalInSeconds(new AlertRabbit().getProperties("rabbit.interval"))
+                    .withIntervalInSeconds(Integer.parseInt(propValue))
                     .repeatForever();
             Trigger trigger = newTrigger()
                     .startNow()
                     .withSchedule(times)
                     .build();
             scheduler.scheduleJob(job, trigger);
-        } catch (SchedulerException | IOException se) {
+        } catch (SchedulerException se) {
             se.printStackTrace();
         }
     }
 
-    public int getProperties(String key) throws  IOException {
-        String propValue;
+    public Properties getProperties() throws IOException {
         Properties properties = new Properties();
-        try (InputStream is = new FileInputStream("src/main/resources/log4j.properties")) {
+        try (InputStream is = AlertRabbit.class.getClassLoader().getResourceAsStream("rabbit.properties")) {
             properties.load(is);
-            propValue = properties.getProperty(key);
-            System.out.println(propValue);
         }
-        return Integer.parseInt(propValue);
+        return properties;
     }
 
     public static class Rabbit implements Job {
