@@ -15,10 +15,11 @@ import static org.quartz.SimpleScheduleBuilder.*;
 public class AlertRabbit {
     public static void main(String[] args) throws Exception {
         Properties properties = getProperties();
+        long intervalMS = Long.parseLong(properties.getProperty("rabbit.interval")) + 1000;
         Class.forName(properties.getProperty("driver-class-name"));
         try (Connection cnt = DriverManager.getConnection(
                 properties.getProperty("url"),
-                properties.getProperty("postgres"),
+                properties.getProperty("username"),
                 properties.getProperty("password"))) {
             try {
                 Scheduler scheduler = StdSchedulerFactory.getDefaultScheduler();
@@ -36,7 +37,7 @@ public class AlertRabbit {
                         .withSchedule(times)
                         .build();
                 scheduler.scheduleJob(job, trigger);
-                Thread.sleep(5000);
+                Thread.sleep(intervalMS);
                 scheduler.shutdown();
             } catch (Exception e) {
                 e.printStackTrace();
@@ -44,10 +45,12 @@ public class AlertRabbit {
         }
     }
 
-    public static Properties getProperties() throws IOException {
+    public static Properties getProperties()  {
         Properties properties = new Properties();
         try (InputStream is = AlertRabbit.class.getClassLoader().getResourceAsStream("rabbitshema.properties")) {
             properties.load(is);
+        } catch (IOException e) {
+            e.printStackTrace();
         }
         return properties;
     }
