@@ -12,30 +12,33 @@ import java.time.LocalDateTime;
 
 public class HabrCareerParse {
 
+        private static Connection cn;
+
         private static final String SOURCE_LINK = "https://career.habr.com";
 
         private static final String PAGE_LINK = String.format("%s/vacancies/java_developer", SOURCE_LINK);
 
         public static void main(String[] args) throws IOException {
-            Connection connection = Jsoup.connect(PAGE_LINK);
-            Document document = connection.get();
-            Elements rows = document.select(".vacancy-card__inner");
-            rows.forEach(row -> {
-                Element titleElement = row.select(".vacancy-card__title").first();
-                Element dateElement = row.select(".vacancy-card__date").first();
-                Element linkElement = titleElement.child(0);
-                String vacancyName = titleElement.text();
-                String datetime = dateElement.child(0).attr("datetime");
-                String date = dateElement.text();
-                String link = String.format("%s%s", SOURCE_LINK, linkElement.attr("href"));
-                System.out.printf("%s %s %s%n", vacancyName, link, date);
-                String newDate = datetime
-                        .replace("T", " ")
-                        .substring(0, datetime.indexOf("+"));
-                System.out.println(newDate);
-                HarbCareerDateTimeParser parser = new HarbCareerDateTimeParser();
-                LocalDateTime localDateTime = parser.parse(newDate);
-            });
+            for (int i = 1; i < 5; i++) {
+                cn = Jsoup.connect(PAGE_LINK + "?page=" + i);
+                Document document = cn.get();
+                Elements rows = document.select(".vacancy-card__inner");
+                rows.forEach(row -> {
+                    Element titleElement = row.select(".vacancy-card__title").first();
+                    Element dateElement = row.select(".vacancy-card__date").first();
+                    Element linkElement = titleElement.child(0);
+                    String vacancyName = titleElement.text();
+                    String datetime = dateElement.child(0).attr("datetime");
+                    String date = dateElement.text();
+                    String link = String.format("%s%s", SOURCE_LINK, linkElement.attr("href"));
+                    System.out.printf("%s %s %s%n", vacancyName, link, date);
+                    String newDate = datetime
+                            .replace("T", " ")
+                            .substring(0, datetime.indexOf("+"));
+                    HarbCareerDateTimeParser parser = new HarbCareerDateTimeParser();
+                    LocalDateTime localDateTime = parser.parse(newDate);
+                });
+            }
         }
     }
 
