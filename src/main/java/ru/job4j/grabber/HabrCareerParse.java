@@ -6,10 +6,11 @@ import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
-
+import ru.job4j.grabber.utils.HarbCareerDateTimeParser;
 import java.io.IOException;
+import java.time.LocalDateTime;
 
-    public class HabrCareerParse {
+public class HabrCareerParse {
 
         private static final String SOURCE_LINK = "https://career.habr.com";
 
@@ -22,13 +23,18 @@ import java.io.IOException;
             rows.forEach(row -> {
                 Element titleElement = row.select(".vacancy-card__title").first();
                 Element dateElement = row.select(".vacancy-card__date").first();
-                Element icon = row.select(".vacancy-card__icon-link").first();
                 Element linkElement = titleElement.child(0);
                 String vacancyName = titleElement.text();
+                String datetime = dateElement.child(0).attr("datetime");
                 String date = dateElement.text();
-                String src = icon.child(0).attr("src");
                 String link = String.format("%s%s", SOURCE_LINK, linkElement.attr("href"));
-                System.out.printf("%s %s %s %s%n", vacancyName, link, src, date);
+                System.out.printf("%s %s %s%n", vacancyName, link, date);
+                String newDate = datetime
+                        .replace("T", " ")
+                        .substring(0, datetime.indexOf("+"));
+                System.out.println(newDate);
+                HarbCareerDateTimeParser parser = new HarbCareerDateTimeParser();
+                LocalDateTime localDateTime = parser.parse(newDate);
             });
         }
     }
