@@ -31,6 +31,8 @@ public class HabrCareerParse {
                     String datetime = dateElement.child(0).attr("datetime");
                     String link = String.format("%s%s", SOURCE_LINK, linkElement.attr("href"));
                     System.out.printf("%s %s %s%n", vacancyName, link, datetime);
+                    HarbCareerDateTimeParser parser = new HarbCareerDateTimeParser();
+                    LocalDateTime localDateTime = parser.parse(datetime);
                 });
             }
         }
