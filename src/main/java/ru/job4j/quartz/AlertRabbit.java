@@ -15,7 +15,8 @@ import static org.quartz.SimpleScheduleBuilder.*;
 public class AlertRabbit {
     public static void main(String[] args) throws Exception {
         Properties properties = getProperties();
-        long intervalMS = Long.parseLong(properties.getProperty("rabbit.interval")) + 1000;
+        long intervalMS = Long.parseLong(properties.getProperty("rabbitThread.interval")) + 1000;
+        int schedulerInterval = Integer.parseInt(properties.getProperty("rabbit.interval"));
         Class.forName(properties.getProperty("driver-class-name"));
         try (Connection cnt = DriverManager.getConnection(
                 properties.getProperty("url"),
@@ -30,7 +31,7 @@ public class AlertRabbit {
                         .usingJobData(data)
                         .build();
                 SimpleScheduleBuilder times = simpleSchedule()
-                        .withIntervalInSeconds(5)
+                        .withIntervalInSeconds(schedulerInterval)
                         .repeatForever();
                 Trigger trigger = newTrigger()
                         .startNow()
