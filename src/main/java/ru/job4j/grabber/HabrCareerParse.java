@@ -29,14 +29,8 @@ public class HabrCareerParse {
                     Element linkElement = titleElement.child(0);
                     String vacancyName = titleElement.text();
                     String datetime = dateElement.child(0).attr("datetime");
-                    String date = dateElement.text();
                     String link = String.format("%s%s", SOURCE_LINK, linkElement.attr("href"));
-                    System.out.printf("%s %s %s%n", vacancyName, link, date);
-                    String newDate = datetime
-                            .replace("T", " ")
-                            .substring(0, datetime.indexOf("+"));
-                    HarbCareerDateTimeParser parser = new HarbCareerDateTimeParser();
-                    LocalDateTime localDateTime = parser.parse(newDate);
+                    System.out.printf("%s %s %s%n", vacancyName, link, datetime);
                 });
             }
         }
