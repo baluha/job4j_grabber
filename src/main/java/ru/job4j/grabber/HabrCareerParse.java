@@ -13,7 +13,9 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class HabrCareerParse implements Parse{
+public class HabrCareerParse implements Parse {
+
+        public static final int numPages = 5;
 
         private static final String SOURCE_LINK = "https://career.habr.com";
 
@@ -42,7 +44,7 @@ public class HabrCareerParse implements Parse{
     public List<Post> list(String link)  {
             List<Post> lst = new ArrayList<>();
             Connection cn;
-                for (int i = 1; i < 2; i++) {
+                for (int i = 1; i < numPages; i++) {
                     cn = Jsoup.connect(link + "?page=" + i);
                     Document document = null;
                     try {
