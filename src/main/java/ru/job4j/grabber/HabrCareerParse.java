@@ -15,7 +15,7 @@ import java.util.List;
 
 public class HabrCareerParse implements Parse {
 
-        public static final int numPages = 5;
+        public static final int NUM_PAGES = 5;
 
         private static final String SOURCE_LINK = "https://career.habr.com";
 
@@ -27,16 +27,21 @@ public class HabrCareerParse implements Parse {
             this.dateTimeParser = dateTimeParser;
     }
 
-        public static void main(String[] args) throws IOException {
+        public static void main(String[] args) {
             HabrCareerParse hcp = new HabrCareerParse(new HarbCareerDateTimeParser());
             List<Post> lst = hcp.list(PAGE_LINK);
             lst.forEach(s -> System.out.println(s.getTitle()));
         }
 
-    private String retrieveDescription(String link) throws IOException {
+    private String retrieveDescription(String link)  {
             Connection cn = Jsoup.connect(link);
-            Document document = cn.get();
-            Element description = document.selectFirst(".style-ugc");
+        Document document = null;
+        try {
+            document = cn.get();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        Element description = document.selectFirst(".style-ugc");
             return description.text();
     }
 
@@ -44,7 +49,7 @@ public class HabrCareerParse implements Parse {
     public List<Post> list(String link)  {
             List<Post> lst = new ArrayList<>();
             Connection cn;
-                for (int i = 1; i < numPages; i++) {
+                for (int i = 1; i < NUM_PAGES; i++) {
                     cn = Jsoup.connect(link + "?page=" + i);
                     Document document = null;
                     try {
@@ -68,11 +73,7 @@ public class HabrCareerParse implements Parse {
         String vacancyName = titleElement.text();
         String datetime = dateElement.child(0).attr("datetime");
         String linkTo = String.format("%s%s", SOURCE_LINK, linkElement.attr("href"));
-        try {
-            post = new Post(vacancyName, linkTo, retrieveDescription(linkTo), dateTimeParser.parse(datetime));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        post = new Post(vacancyName, linkTo, retrieveDescription(linkTo), dateTimeParser.parse(datetime));
         return post;
     }
 }
