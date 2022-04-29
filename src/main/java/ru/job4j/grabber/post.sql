@@ -1,7 +1,7 @@
-CREATE TABLE IF NO EXIST POST (
+CREATE TABLE IF NOT EXISTS POST (
 id serial primary key,
-name varchar(255),
-text text,
+title varchar(255),
+description text,
 link text unique,
 created timestamp
 );
