@@ -23,11 +23,6 @@ from person as p
 join company as c
 on p.company_id = c.id;
 
-SELECT company_id, COUNT(*) as how_many
-from person
-group by company_id
-order by how_many desc limit 1;
-
 SELECT c.name, COUNT(p.company_id)
 from company as c
 join person as p
