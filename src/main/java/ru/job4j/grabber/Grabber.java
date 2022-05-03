@@ -32,7 +32,7 @@ public class Grabber implements Grab {
     public void cfg() throws IOException {
         File file = new File("app.properties");
         System.out.println(file.getAbsolutePath());
-        try (InputStream in = new FileInputStream(new File("src/main/resources/app.properties"))) {
+        try (InputStream in = Grabber.class.getClassLoader().getResourceAsStream("app.properties")) {
             cfg.load(in);
         }
     }
