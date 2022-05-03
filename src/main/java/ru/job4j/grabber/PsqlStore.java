@@ -76,8 +76,8 @@ public class PsqlStore implements Store, AutoCloseable {
     @Override
     public Post findById(int id) {
         Post post = null;
-        try (PreparedStatement ps = cn.prepareStatement(
-                String.format("select * from post where id = %o", id))) {
+        try (PreparedStatement ps = cn.prepareStatement("select * from post where id = ?")) {
+            ps.setInt(1, id);
             try (ResultSet resultSet = ps.executeQuery()) {
                 if (resultSet.next()) {
                     post = getPost(resultSet);
@@ -106,14 +106,14 @@ public class PsqlStore implements Store, AutoCloseable {
     public static void main(String[] args) {
         Properties properties = AlertRabbit.getProperties();
         PsqlStore psqlStore = new PsqlStore(properties);
-        Post post = new Post(
+/*        Post post = new Post(
                 "java-developer",
                 "https://career.habr.com/vacancies/1",
                 "Сиди за монитором all day long и имитируй бурную деятельность",
                 LocalDateTime.now());
-        psqlStore.save(post);
+        psqlStore.save(post);*/
         System.out.println(psqlStore.findById(1));
-        System.out.println("-|-|-|-|-|-|-|-|-|-|-");
-        psqlStore.getAll().forEach(System.out::println);
+/*        System.out.println("-|-|-|-|-|-|-|-|-|-|-");
+        psqlStore.getAll().forEach(System.out::println);*/
     }
 }
