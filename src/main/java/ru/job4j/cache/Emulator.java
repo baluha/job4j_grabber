@@ -18,7 +18,7 @@ public class Emulator {
         System.out.println("Введите имя файла");
         String filename = scanner.nextLine();
         boolean run = true;
-        while(run) {
+        while (run) {
             showMenu();
             int choice = scanner.nextInt();
             if (choice == 1) {
