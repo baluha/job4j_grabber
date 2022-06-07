@@ -9,9 +9,7 @@ public class User {
         this.name = name;
     }
 
-    protected void finalize() throws Throwable {
-        System.out.printf("Объект исчезнет навсегда %d %s%n", age, name);
-    }
+
     public int getAge() {
         return age;
     }
