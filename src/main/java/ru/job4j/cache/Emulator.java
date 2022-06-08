@@ -4,6 +4,10 @@ import java.util.Scanner;
 
 public class Emulator {
 
+    private static final int CHOICE1 = 1;
+    private static final int CHOICE2 = 2;
+    private static final int CHOICE3 = 3;
+
     public static void showMenu() {
         System.out.println("Для загрузки содержимого в кэш введите 1 \n"
         + "Для получения содержимого введите 2 \n"
@@ -21,13 +25,13 @@ public class Emulator {
         while (run) {
             showMenu();
             int choice = scanner.nextInt();
-            if (choice == 1) {
+            if (choice == CHOICE1) {
                 cache.put(filename, cache.load(filename));
             }
-            if (choice == 2) {
+            if (choice == CHOICE2) {
                 System.out.println(cache.get(filename));
             }
-            if (choice == 3) {
+            if (choice == CHOICE3) {
                 run = false;
             }
         }
