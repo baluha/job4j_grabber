@@ -14,7 +14,7 @@ public class MaxMin {
         return getValue(value);
     }
 
-    public <T> T getValue(List<T> lst) {
+    private  <T> T getValue(List<T> lst) {
         return lst.isEmpty() ? null : lst.get(0);
     }
 }

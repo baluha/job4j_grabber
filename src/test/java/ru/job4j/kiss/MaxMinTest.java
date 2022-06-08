@@ -10,6 +10,7 @@ import java.util.List;
 
 public class MaxMinTest {
 
+
     @Test
     public void maxValueTest() {
         List<Integer> lst = new ArrayList<>();
