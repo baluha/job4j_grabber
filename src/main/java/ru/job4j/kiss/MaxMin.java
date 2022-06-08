@@ -5,11 +5,16 @@ import java.util.List;
 
 public class MaxMin {
     public <T> T max(List<T> value, Comparator<T> comparator) {
-        return value.stream().max(comparator).orElse(null);
+        value.sort(comparator);
+        return getValue(value);
     }
 
     public <T> T min(List<T> value, Comparator<T> comparator) {
-        return value.stream().max(comparator).orElse(null);
+        value.sort(comparator);
+        return getValue(value);
     }
 
+    public <T> T getValue(List<T> lst) {
+        return lst.isEmpty() ? null : lst.get(0);
+    }
 }
