@@ -20,7 +20,7 @@ public class MaxMinTest {
         lst.add(4);
         lst.add(2);
         MaxMin mn = new MaxMin();
-        Assert.assertThat(8, is(mn.max(lst, Comparator.reverseOrder())));
+        Assert.assertThat(8, is(mn.max(lst, Comparator.naturalOrder())));
     }
 
     @Test
@@ -32,7 +32,19 @@ public class MaxMinTest {
         lst.add(4);
         lst.add(2);
         MaxMin mn = new MaxMin();
-        Assert.assertThat(1, is(mn.max(lst, Comparator.naturalOrder())));
+        Assert.assertThat(1, is(mn.min(lst, Comparator.naturalOrder())));
+    }
+
+
+    @Test
+    public void maxStringValue() {
+        List<String> lst = new ArrayList<>();
+        lst.add("Petia");
+        lst.add("Vasia");
+        lst.add("Semen");
+        lst.add("Grigori");
+        MaxMin mn = new MaxMin();
+        Assert.assertThat("Vasia", is(mn.max(lst, Comparator.naturalOrder())));
     }
 
     @Test
@@ -43,17 +55,36 @@ public class MaxMinTest {
         lst.add("Semen");
         lst.add("Grigori");
         MaxMin mn = new MaxMin();
-        Assert.assertThat("Grigori", is(mn.max(lst, Comparator.naturalOrder())));
+        Assert.assertThat("Grigori", is(mn.min(lst, Comparator.naturalOrder())));
     }
 
     @Test
-    public void maxStringValue() {
+    public void whenNull() {
+        List<String> lst = new ArrayList<>();
+        MaxMin mn = new MaxMin();
+        Assert.assertNull(mn.min(lst, Comparator.naturalOrder()));
+    }
+
+    @Test
+    public void whenOneValue() {
+        List<String> lst = new ArrayList<>();
+        lst.add("Grigori");
+        MaxMin mn = new MaxMin();
+        Assert.assertThat("Grigori", is(mn.min(lst, Comparator.naturalOrder())));
+    }
+
+    @Test
+    public void whenSameValue() {
         List<String> lst = new ArrayList<>();
         lst.add("Petia");
+        lst.add("Vasia");
+        lst.add("Petia");
+        lst.add("Petia");
+        lst.add("Vasia");
         lst.add("Vasia");
         lst.add("Semen");
         lst.add("Grigori");
         MaxMin mn = new MaxMin();
-        Assert.assertThat("Vasia", is(mn.max(lst, Comparator.reverseOrder())));
+        Assert.assertThat("Vasia", is(mn.max(lst, Comparator.naturalOrder())));
     }
 }
