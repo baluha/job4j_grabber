@@ -44,7 +44,7 @@ public class CinemaTest {
 
     @Ignore
     @Test(expected = IllegalArgumentException.class)
-    public void whenPlaceAlreadyBuy() throws IllegalArgumentException {
+    public void whenPlaceAlreadyBuy() {
         Cinema cinema = new Cinema3D();
         Account account1 = new AccountCinema();
         Account account2 = new AccountCinema();
@@ -54,7 +54,7 @@ public class CinemaTest {
 
     @Ignore
     @Test(expected = IllegalArgumentException.class)
-    public void whenDateNotExist() throws IllegalArgumentException {
+    public void whenDateNotExist() {
         Cinema cinema = new Cinema3D();
         Account account = new AccountCinema();
         cinema.buy(account, 1, 1, new GregorianCalendar(1990, Calendar.DECEMBER, 1));
@@ -62,7 +62,7 @@ public class CinemaTest {
 
     @Ignore
     @Test(expected = IllegalArgumentException.class)
-    public void whenPlaceNotExist() throws IllegalArgumentException {
+    public void whenPlaceNotExist() {
         Cinema cinema = new Cinema3D();
         Account account = new AccountCinema();
         cinema.buy(account, 99, -1, new GregorianCalendar(2022, Calendar.DECEMBER, 1));
