@@ -26,7 +26,7 @@ public class GeneratorTest  {
 
     @Ignore
     @Test(expected = IllegalArgumentException.class)
-    public void whenExcessSample() throws IllegalArgumentException {
+    public void whenExcessSample() {
         Map<String, String> map = new HashMap<>();
         map.put("Name", "Ivan");
         map.put("Middle name", "Ivanovich");
@@ -37,7 +37,7 @@ public class GeneratorTest  {
 
     @Ignore
     @Test(expected = IllegalArgumentException.class)
-    public void key() throws IllegalArgumentException {
+    public void key() {
         Map<String, String> map = new HashMap<>();
         map.put("Name", "Ivan");
         map.put("Surname", "Ivanov");
