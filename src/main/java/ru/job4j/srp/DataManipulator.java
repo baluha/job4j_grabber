@@ -6,7 +6,7 @@ public class DataManipulator {
 
     private static List<Integer> lst;
 
-    public static void getAndManipulate(List<Integer> list) {
+    public static void getAndSave(List<Integer> list) {
         for (Integer i : list) {
             list.add(i + 1);
         }
