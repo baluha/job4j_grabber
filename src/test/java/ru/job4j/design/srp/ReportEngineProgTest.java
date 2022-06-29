@@ -1,43 +1,57 @@
 package ru.job4j.design.srp;
 
+import org.junit.Ignore;
 import org.junit.Test;
 
-import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.List;
 
 import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.*;
-import static ru.job4j.design.srp.ReportEngine.DATE_FORMAT;
 
 public class ReportEngineProgTest {
-
+    @Ignore
     @Test
     public void whenProgGenerated() {
+        char dm = (char) 34;
         MemStore store = new MemStore();
         Calendar now = Calendar.getInstance();
         Employee worker1 = new Employee("Ivan", now, now, 100);
         Employee worker2 = new Employee("Ivan", now, now, 90);
         Employee worker3 = new Employee("Ivan", now, now, 80);
-        List<Employee> lst = new ArrayList<>();
-        lst.add(worker1);
-        lst.add(worker2);
-        lst.add(worker3);
         store.add(worker1);
         store.add(worker2);
         store.add(worker3);
-        Report engine = new ReportEngineProg(store);
-        StringBuilder expect = new StringBuilder();
-        expect.append("<p>Name; Hired; Fired; Salary;</p>")
-                .append(System.lineSeparator());
-        for (Employee employee : lst) {
-            expect.append("<p>").append(employee.getName()).append(";")
-                    .append(DATE_FORMAT.format(employee.getHired().getTime())).append(";")
-                    .append(DATE_FORMAT.format(employee.getFired().getTime())).append(";")
-                    .append(employee.getSalary()).append(";").append("</p>")
-                    .append(System.lineSeparator());
+        DateFormatter dateFormatter = new ReportDate();
+        Report engine = new ReportEngineProg(store, dateFormatter);
+        StringBuilder preInformation = new StringBuilder()
+                .append("<!DOCTYPE html>")
+                .append("<html lang=").append(dm).append("en").append(dm).append(">").append("\\r\\n")
+                .append("\\t<title>......</title>").append(System.lineSeparator())
+                .append("\\t\\t<body>").append(System.lineSeparator())
+                .append("\\t\\t\\t<p>").append(System.lineSeparator())
+                .append("Name; Hired; Fired; Salary;");
+        StringBuilder postInformation = new StringBuilder()
+                .append("\\t\\t\\t</p>").append(System.lineSeparator())
+                .append("\\t\\t</body>").append(System.lineSeparator())
+                .append("</html>").append(System.lineSeparator());
+        StringBuilder expect = new StringBuilder()
+                .append(preInformation)
+                .append(worker1.getName()).append(";")
+                .append(dateFormatter.formatDate(worker1.getHired().getTime())).append(";")
+                .append(dateFormatter.formatDate(worker1.getFired().getTime())).append(";")
+                .append(worker1.getSalary()).append(";")
+                .append(worker2.getName()).append(";")
+                .append(dateFormatter.formatDate(worker2.getHired().getTime())).append(";")
+                .append(dateFormatter.formatDate(worker2.getFired().getTime())).append(";")
+                .append(worker2.getSalary()).append(";")
+                .append(worker3.getName()).append(";")
+                .append(dateFormatter.formatDate(worker3.getHired().getTime())).append(";")
+                .append(dateFormatter.formatDate(worker3.getFired().getTime())).append(";")
+                .append(worker3.getSalary()).append(";")
+                .append(postInformation);
+        String gen = engine.generate(em -> true);
+        assertThat(gen, is(expect.toString()));
         }
-        assertThat(engine.generate(em -> true), is(expect.toString()));
+
     }
 
-}
