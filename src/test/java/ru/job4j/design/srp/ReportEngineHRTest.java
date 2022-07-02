@@ -2,13 +2,8 @@ package ru.job4j.design.srp;
 
 import static org.junit.Assert.assertThat;
 import static org.hamcrest.Matchers.is;
-import static ru.job4j.design.srp.ReportEngine.DATE_FORMAT;
 
 import org.junit.Test;
-import ru.job4j.design.srp.Employee;
-import ru.job4j.design.srp.MemStore;
-import ru.job4j.design.srp.Report;
-import ru.job4j.design.srp.ReportEngine;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -33,12 +28,23 @@ public class ReportEngineHRTest {
         Report engine = new ReportEngineHR(store);
         StringBuilder expect = new StringBuilder();
         expect.append("Name; Salary;")
+                .append(System.lineSeparator())
+                .append(worker1.getName())
+                .append(";")
+                .append(worker1.getSalary())
+                .append(";")
+                .append(System.lineSeparator())
+                .append(worker2.getName())
+                .append(";")
+                .append(worker2.getSalary())
+                .append(";")
+                .append(System.lineSeparator())
+                .append(worker3.getName())
+                .append(";")
+                .append(worker3.getSalary())
+                .append(";")
                 .append(System.lineSeparator());
-        for (Employee employee : lst) {
-            expect.append(employee.getName()).append(";")
-                    .append(employee.getSalary()).append(";")
-                    .append(System.lineSeparator());
-        }
+
         assertThat(engine.generate(em -> true), is(expect.toString()));
     }
 }

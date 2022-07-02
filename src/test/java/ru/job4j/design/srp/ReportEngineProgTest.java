@@ -1,6 +1,5 @@
 package ru.job4j.design.srp;
 
-import org.junit.Ignore;
 import org.junit.Test;
 
 import java.util.Calendar;
@@ -9,7 +8,6 @@ import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.*;
 
 public class ReportEngineProgTest {
-    @Ignore
     @Test
     public void whenProgGenerated() {
         char dm = (char) 34;
@@ -25,14 +23,14 @@ public class ReportEngineProgTest {
         Report engine = new ReportEngineProg(store, dateFormatter);
         StringBuilder preInformation = new StringBuilder()
                 .append("<!DOCTYPE html>")
-                .append("<html lang=").append(dm).append("en").append(dm).append(">").append("\\r\\n")
-                .append("\\t<title>......</title>").append(System.lineSeparator())
-                .append("\\t\\t<body>").append(System.lineSeparator())
-                .append("\\t\\t\\t<p>").append(System.lineSeparator())
+                .append("<html lang=").append(dm).append("en").append(dm).append(">").append(System.lineSeparator())
+                .append("<title>......</title>").append(System.lineSeparator())
+                .append("<body>").append(System.lineSeparator())
+                .append("<p>").append(System.lineSeparator())
                 .append("Name; Hired; Fired; Salary;");
         StringBuilder postInformation = new StringBuilder()
-                .append("\\t\\t\\t</p>").append(System.lineSeparator())
-                .append("\\t\\t</body>").append(System.lineSeparator())
+                .append("</p>").append(System.lineSeparator())
+                .append("</body>").append(System.lineSeparator())
                 .append("</html>").append(System.lineSeparator());
         StringBuilder expect = new StringBuilder()
                 .append(preInformation)

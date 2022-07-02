@@ -5,12 +5,13 @@ import java.util.function.Predicate;
 
 public class ReportEngine implements Report {
 
-    public static final SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("dd:MM:yyyy HH:mm");
-
     private Store store;
 
-    public ReportEngine(Store store) {
+    private ReportDate reportDate;
+
+    public ReportEngine(Store store, ReportDate reportDate) {
         this.store = store;
+        this.reportDate = reportDate;
     }
 
     @Override
@@ -20,8 +21,8 @@ public class ReportEngine implements Report {
                 .append(System.lineSeparator());
         for (Employee employee : store.findBy(filter)) {
             text.append(employee.getName()).append(";")
-                    .append(DATE_FORMAT.format(employee.getHired().getTime())).append(";")
-                    .append(DATE_FORMAT.format(employee.getFired().getTime())).append(";")
+                    .append(reportDate.formatDate(employee.getHired().getTime())).append(";")
+                    .append(reportDate.formatDate(employee.getFired().getTime())).append(";")
                     .append(employee.getSalary()).append(";")
                     .append(System.lineSeparator());
         }

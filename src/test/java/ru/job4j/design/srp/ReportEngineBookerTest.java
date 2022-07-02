@@ -8,13 +8,13 @@ import java.util.List;
 
 import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.*;
-import static ru.job4j.design.srp.ReportEngine.DATE_FORMAT;
 
 public class ReportEngineBookerTest {
     @Test
     public void whenSortGenerated() {
         MemStore store = new MemStore();
         Calendar now = Calendar.getInstance();
+        ReportDate reportDate = new ReportDate();
         Employee worker1 = new Employee("Ivan", now, now, 100);
         Employee worker2 = new Employee("Ivan", now, now, 90);
         Employee worker3 = new Employee("Ivan", now, now, 80);
@@ -25,14 +25,14 @@ public class ReportEngineBookerTest {
         store.add(worker1);
         store.add(worker2);
         store.add(worker3);
-        Report engine = new ReportEngineBooker(store);
+        Report engine = new ReportEngineBooker(store, reportDate);
         StringBuilder expect = new StringBuilder();
         expect.append("Name; Hired; Fired; Salary;")
                 .append(System.lineSeparator());
         for (Employee employee : lst) {
                     expect.append(employee.getName()).append(";")
-                            .append(DATE_FORMAT.format(employee.getHired().getTime())).append(";")
-                            .append(DATE_FORMAT.format(employee.getFired().getTime())).append(";")
+                            .append(reportDate.formatDate(employee.getHired().getTime())).append(";")
+                            .append(reportDate.formatDate(employee.getFired().getTime())).append(";")
                             .append(employee.getSalary() * 100).append(" rub").append(";")
                             .append(System.lineSeparator());
         }

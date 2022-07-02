@@ -1,11 +1,8 @@
 package ru.job4j.design.srp;
 
-import java.text.SimpleDateFormat;
 import java.util.function.Predicate;
 
 public class ReportEngineProg implements Report {
-
-    public static final SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("dd:MM:yyyy HH:mm");
 
     private DateFormatter dateFormatter;
 
@@ -24,12 +21,12 @@ public class ReportEngineProg implements Report {
         StringBuilder postInformation = new StringBuilder();
         preInformation.append("<!DOCTYPE html>")
                 .append("<html lang=").append(dm).append("en").append(dm).append(">").append(System.lineSeparator())
-                .append("\\t<title>......</title>").append(System.lineSeparator())
-                .append("\\t\\t<body>").append(System.lineSeparator())
-                .append("\\t\\t\\t<p>").append(System.lineSeparator())
+                .append("<title>......</title>").append(System.lineSeparator())
+                .append("<body>").append(System.lineSeparator())
+                .append("<p>").append(System.lineSeparator())
                 .append("Name; Hired; Fired; Salary;");
-        postInformation.append("\\t\\t\\t</p>").append(System.lineSeparator())
-                .append("\\t\\t</body>").append(System.lineSeparator())
+        postInformation.append("</p>").append(System.lineSeparator())
+                .append("</body>").append(System.lineSeparator())
                 .append("</html>").append(System.lineSeparator());
         for (Employee employee : store.findBy(filter)) {
             text.append(employee.getName()).append(";")

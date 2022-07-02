@@ -5,11 +5,11 @@ import java.util.Date;
 
 public class ReportDate implements DateFormatter {
 
-    private String format = "dd:MM:yyyy HH:mm";
+    private static final String FORMAT = "dd:MM:yyyy HH:mm";
 
     @Override
     public String formatDate(Date date) {
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat(format);
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat(FORMAT);
         return simpleDateFormat.format(date);
     }
 }

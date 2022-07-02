@@ -1,16 +1,19 @@
 package ru.job4j.design.srp;
 
-import java.text.SimpleDateFormat;
 import java.util.function.Predicate;
 
 public class ReportEngineBooker implements Report {
 
-    public static final SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("dd:MM:yyyy HH:mm");
+    private ReportDate reportDate;
+
+    private static final int RUB = 100;
 
     private Store store;
 
-    public ReportEngineBooker(Store store) {
+    public ReportEngineBooker(Store store, ReportDate reportDate) {
         this.store = store;
+        this.reportDate = reportDate;
+
     }
 
     @Override
@@ -20,9 +23,9 @@ public class ReportEngineBooker implements Report {
                 .append(System.lineSeparator());
         for (Employee employee : store.findBy(filter)) {
             text.append(employee.getName()).append(";")
-                    .append(DATE_FORMAT.format(employee.getHired().getTime())).append(";")
-                    .append(DATE_FORMAT.format(employee.getFired().getTime())).append(";")
-                    .append(employee.getSalary() * 100).append(" rub").append(";")
+                    .append(reportDate.formatDate(employee.getHired().getTime())).append(";")
+                    .append(reportDate.formatDate(employee.getFired().getTime())).append(";")
+                    .append(employee.getSalary() * RUB).append(" rub").append(";")
                     .append(System.lineSeparator());
         }
         return text.toString();
