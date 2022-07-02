@@ -6,6 +6,9 @@ import java.util.function.Predicate;
 
 public class ReportEngineHR implements Report {
 
+    private static final Comparator<Employee> COMPARATOR
+            = (e1, e2) -> (int) (e2.getSalary() - e1.getSalary());
+
     private Store store;
 
     public ReportEngineHR(Store store) {
@@ -14,9 +17,8 @@ public class ReportEngineHR implements Report {
 
     @Override
     public String generate(Predicate<Employee> filter) {
-        Comparator<Employee> bySalary = (e1, e2) -> (int) (e2.getSalary() - e1.getSalary());
         List<Employee> lst = store.findBy(filter);
-        lst.sort(bySalary);
+        lst.sort(COMPARATOR);
         StringBuilder text = new StringBuilder();
         text.append("Name; Salary;")
                 .append(System.lineSeparator());

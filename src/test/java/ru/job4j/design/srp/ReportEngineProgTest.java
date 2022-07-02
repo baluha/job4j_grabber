@@ -23,7 +23,7 @@ public class ReportEngineProgTest {
         Report engine = new ReportEngineProg(store, dateFormatter);
         StringBuilder preInformation = new StringBuilder()
                 .append("<!DOCTYPE html>")
-                .append("<html lang=").append(dm).append("en").append(dm).append(">").append(System.lineSeparator())
+                .append("<html lang=\"en\">").append(System.lineSeparator())
                 .append("<title>......</title>").append(System.lineSeparator())
                 .append("<body>").append(System.lineSeparator())
                 .append("<p>").append(System.lineSeparator())

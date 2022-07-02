@@ -16,11 +16,10 @@ public class ReportEngineProg implements Report {
     @Override
     public String generate(Predicate<Employee> filter) {
         StringBuilder text = new StringBuilder();
-        char dm = (char) 34;
         StringBuilder preInformation = new StringBuilder();
         StringBuilder postInformation = new StringBuilder();
         preInformation.append("<!DOCTYPE html>")
-                .append("<html lang=").append(dm).append("en").append(dm).append(">").append(System.lineSeparator())
+                .append("<html lang=\"en\">").append(System.lineSeparator())
                 .append("<title>......</title>").append(System.lineSeparator())
                 .append("<body>").append(System.lineSeparator())
                 .append("<p>").append(System.lineSeparator())
