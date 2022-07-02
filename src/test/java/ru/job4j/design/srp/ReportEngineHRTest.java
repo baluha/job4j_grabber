@@ -44,7 +44,6 @@ public class ReportEngineHRTest {
                 .append(worker3.getSalary())
                 .append(";")
                 .append(System.lineSeparator());
-
         assertThat(engine.generate(em -> true), is(expect.toString()));
     }
 }
