@@ -2,6 +2,8 @@ package ru.job4j.design.srp;
 
 import org.junit.Test;
 
+import javax.xml.bind.JAXBException;
+import java.io.IOException;
 import java.util.Calendar;
 
 import static org.hamcrest.Matchers.is;
@@ -9,7 +11,7 @@ import static org.junit.Assert.*;
 
 public class ReportEngineProgTest {
     @Test
-    public void whenProgGenerated() {
+    public void whenProgGenerated() throws JAXBException, IOException {
         char dm = (char) 34;
         MemStore store = new MemStore();
         Calendar now = Calendar.getInstance();

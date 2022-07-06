@@ -2,6 +2,8 @@ package ru.job4j.design.srp;
 
 import org.junit.Test;
 
+import javax.xml.bind.JAXBException;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
@@ -11,7 +13,7 @@ import static org.junit.Assert.*;
 
 public class ReportEngineBookerTest {
     @Test
-    public void whenSortGenerated() {
+    public void whenSortGenerated() throws JAXBException, IOException {
         MemStore store = new MemStore();
         Calendar now = Calendar.getInstance();
         ReportDate reportDate = new ReportDate();

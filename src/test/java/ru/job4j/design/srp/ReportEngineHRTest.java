@@ -5,6 +5,8 @@ import static org.hamcrest.Matchers.is;
 
 import org.junit.Test;
 
+import javax.xml.bind.JAXBException;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
@@ -12,7 +14,7 @@ import java.util.List;
 public class ReportEngineHRTest {
 
     @Test
-    public void whenSortGenerated() {
+    public void whenSortGenerated() throws JAXBException, IOException {
         MemStore store = new MemStore();
         Calendar now = Calendar.getInstance();
         Employee worker1 = new Employee("Ivan", now, now, 100);

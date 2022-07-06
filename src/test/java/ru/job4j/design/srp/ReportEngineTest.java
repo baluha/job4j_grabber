@@ -5,12 +5,14 @@ import static org.hamcrest.Matchers.is;
 
 import org.junit.Test;
 
+import javax.xml.bind.JAXBException;
+import java.io.IOException;
 import java.util.Calendar;
 
 public class ReportEngineTest {
 
     @Test
-    public void whenOldGenerated() {
+    public void whenOldGenerated() throws JAXBException, IOException {
         ReportDate reportDate = new ReportDate();
         MemStore store = new MemStore();
         Calendar now = Calendar.getInstance();
