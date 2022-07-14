@@ -7,21 +7,25 @@ import java.util.List;
 public class Warehouse extends Store {
 
     private final List<Food> foodList = new ArrayList<>();
+    private static final int PERCENT = 25;
 
     @Override
-    public void add(Food food) throws ParseException {
-        float spoilage = ExpDate.percent(food.getExpiryDate(), food.getCreateDate());
-        if (spoilage > 75) {
+    public boolean add(Food food) throws ParseException {
+        boolean rsl = false;
+        if (accept(food)) {
             foodList.add(food);
+            rsl = true;
         }
+        return rsl;
     }
 
     @Override
-    public void delete(Food food) {
-        foodList.remove(food);
+    boolean accept(Food food) throws ParseException {
+        float spoilage = Store.getPercent(food);
+        return spoilage < PERCENT;
     }
 
     public List<Food> getFoodList() {
-        return foodList;
+        return new ArrayList<>(foodList);
     }
 }

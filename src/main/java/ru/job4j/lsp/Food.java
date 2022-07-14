@@ -1,6 +1,7 @@
 package ru.job4j.lsp;
 
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.Objects;
 
@@ -8,12 +9,12 @@ public class Food {
 
     SimpleDateFormat formater = new SimpleDateFormat("yyyy-MM-dd");
     private String name;
-    private String expiryDate;
-    private String createDate;
+    private LocalDate expiryDate;
+    private LocalDate createDate;
     private float price;
     private float discount;
 
-    public Food(String name, String expiryDate, String createDate, float price, float discount) {
+    public Food(String name, LocalDate expiryDate, LocalDate createDate, float price, float discount) {
         this.name = name;
         this.expiryDate = expiryDate;
         this.createDate = createDate;
@@ -33,19 +34,19 @@ public class Food {
         this.name = name;
     }
 
-    public String getExpiryDate() {
+    public LocalDate getExpiryDate() {
         return expiryDate;
     }
 
-    public void setExpiryDate(String expiryDate) {
+    public void setExpiryDate(LocalDate expiryDate) {
         this.expiryDate = expiryDate;
     }
 
-    public String getCreateDate() {
+    public LocalDate getCreateDate() {
         return createDate;
     }
 
-    public void setCreateDate(String createDate) {
+    public void setCreateDate(LocalDate createDate) {
         this.createDate = createDate;
     }
 

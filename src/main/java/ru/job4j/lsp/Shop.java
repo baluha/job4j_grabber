@@ -6,29 +6,34 @@ import java.util.List;
 
 public class Shop extends Store {
 
-    private List<Food> foodList = new ArrayList<>();
+    private final List<Food> foodList = new ArrayList<>();
+    private static final int MAX = 75;
+    private static final int MIN = 25;
+    private static final int SPOILED = 99;
 
     @Override
-    public void add(Food food) throws ParseException {
-        float spoilage = ExpDate.percent(food.getExpiryDate(), food.getCreateDate());
-        System.out.println(spoilage);
-        if (spoilage < 75 && spoilage > 25) {
+    public boolean add(Food food) throws ParseException {
+        boolean rsl = false;
+        float spoilage = Store.getPercent(food);
+        if (accept(food)) {
             foodList.add(food);
+            rsl = true;
         }
-        if (spoilage < 25) {
-            Food another = new Food(food.getName(), food.getExpiryDate(),
-                    food.getCreateDate(), food.getPrice() * food.getDiscount(),
-                    food.getDiscount());
-            foodList.add(another);
+        if (!accept(food) && spoilage > MAX && spoilage <= SPOILED) {
+            food.setPrice(food.getPrice() * food.getDiscount());
+            foodList.add(food);
+            rsl = true;
         }
+        return rsl;
     }
 
     @Override
-    public void delete(Food food) {
-        foodList.remove(food);
+    boolean accept(Food food) throws ParseException {
+        float spoilage = Store.getPercent(food);
+        return spoilage < MAX && spoilage > MIN;
     }
 
     public List<Food> getFoodList() {
-        return foodList;
+        return new ArrayList<>(foodList);
     }
 }
