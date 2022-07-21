@@ -4,22 +4,19 @@ import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Shop extends Store {
+public class Shop implements Store {
 
     private final List<Food> foodList = new ArrayList<>();
-    private static final int MAX = 75;
-    private static final int MIN = 25;
-    private static final int SPOILED = 99;
 
     @Override
     public boolean add(Food food) throws ParseException {
         boolean rsl = false;
-        float spoilage = Store.getPercent(food);
+        float spoilage = getPercent(food);
         if (accept(food)) {
             foodList.add(food);
             rsl = true;
         }
-        if (!accept(food) && spoilage > MAX && spoilage <= SPOILED) {
+        if (!accept(food) && spoilage > Percent.MAX75 && spoilage <= Percent.SPOILED) {
             food.setPrice(food.getPrice() * food.getDiscount());
             foodList.add(food);
             rsl = true;
@@ -28,9 +25,9 @@ public class Shop extends Store {
     }
 
     @Override
-    boolean accept(Food food) throws ParseException {
-        float spoilage = Store.getPercent(food);
-        return spoilage < MAX && spoilage > MIN;
+    public boolean accept(Food food) throws ParseException {
+        float spoilage = getPercent(food);
+        return spoilage < Percent.MAX75 && spoilage > Percent.QUARTER;
     }
 
     public List<Food> getFoodList() {

@@ -1,6 +1,7 @@
 package ru.job4j.lsp;
 
 import java.text.ParseException;
+import java.util.ArrayList;
 import java.util.List;
 
 public class ControlQuality {
@@ -24,6 +25,6 @@ public class ControlQuality {
         }
 
     public List<Store> getLst() {
-        return lst;
+        return new ArrayList<>(lst);
     }
 }

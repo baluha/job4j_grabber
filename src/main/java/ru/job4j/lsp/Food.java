@@ -7,7 +7,6 @@ import java.util.Objects;
 
 public class Food {
 
-    SimpleDateFormat formater = new SimpleDateFormat("yyyy-MM-dd");
     private String name;
     private LocalDate expiryDate;
     private LocalDate createDate;
@@ -90,7 +89,6 @@ public class Food {
     @Override
     public String toString() {
         return "Food{"
-                + "formater=" + formater
                 + ", name='" + name + '\''
                 + ", expiryDate='" + expiryDate + '\''
                 + ", createDate='" + createDate + '\''

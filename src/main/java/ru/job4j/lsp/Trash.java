@@ -4,7 +4,7 @@ import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Trash extends Store {
+public class Trash implements Store {
 
     private final List<Food> foodList = new ArrayList<>();
     private static final int PERCENT = 100;
@@ -19,10 +19,11 @@ public class Trash extends Store {
         return rsl;
     }
 
+
     @Override
-    boolean accept(Food food) throws ParseException {
-        float spoilage = Store.getPercent(food);
-        return spoilage >= PERCENT;
+    public boolean accept(Food food) throws ParseException {
+        float spoilage = getPercent(food);
+        return spoilage >= Percent.HUNDRED;
     }
 
     public List<Food> getFoodList() {
