@@ -11,7 +11,10 @@ public class ReportXmlSerialization implements Report {
 
     private Store store;
 
-    public ReportXmlSerialization(Store store) {
+    JAXBContext context = JAXBContext.newInstance(Employees.class);
+    Marshaller marshaller = context.createMarshaller();
+
+    public ReportXmlSerialization(Store store) throws JAXBException {
         this.store = store;
     }
 
@@ -19,21 +22,11 @@ public class ReportXmlSerialization implements Report {
     public String generate(Predicate<Employee> filter) throws JAXBException, IOException {
         StringBuilder text = new StringBuilder();
         text.append("Name; Hired; Fired; Salary;");
-        JAXBContext context = JAXBContext.newInstance(Employee.class);
-        Marshaller marshaller = context.createMarshaller();
-        marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
-        try (StringWriter writer = new StringWriter()) {
-            store.findBy(filter).forEach(v -> {
-                try {
-                    marshaller.marshal(v, writer);
-                } catch (JAXBException e) {
-                    e.printStackTrace();
-                }
-            });
-
-            text.append(writer.getBuffer().toString());
+        Employees emp = new Employees(store.findBy(filter));
+        try (StringWriter sw = new StringWriter()) {
+            marshaller.marshal(emp, sw);
+            text.append(sw.getBuffer().toString());
         }
-
         return text.toString();
     }
 }

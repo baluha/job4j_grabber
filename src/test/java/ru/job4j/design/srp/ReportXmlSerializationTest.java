@@ -24,16 +24,23 @@ public class ReportXmlSerializationTest {
         store.add(worker3);
         Report engine = new ReportXmlSerialization(store);
         StringBuilder expect = new StringBuilder();
-        expect.append("Name; Hired; Fired; Salary;"
-                + "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?>\n"
-                        + "<employee name=\"Ivan1\" hired=\"" + reportDate.formatDate(worker1.getHired().getTime())
-                + "\" fired=\"" + reportDate.formatDate(worker1.getFired().getTime()) + "\" salary=\"100.0\"/>"
-                        + "\n<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?>\n"
-                        + "<employee name=\"Ivan2\" hired=\"" + reportDate.formatDate(worker2.getHired().getTime())
-                + "\" fired=\"" + reportDate.formatDate(worker2.getFired().getTime()) + "\" salary=\"90.0\"/>"
-                        + "\n<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?>\n"
-                        + "<employee name=\"Ivan3\" hired=\"" + reportDate.formatDate(worker3.getHired().getTime())
-                + "\" fired=\"" + reportDate.formatDate(worker3.getFired().getTime()) + "\" salary=\"80.0\"/>\n");
+        expect.append("Name; Hired; Fired; Salary;")
+                .append("<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?><employees>")
+                .append("<employee name=\"Ivan1\" hired=\"")
+                .append(reportDate.formatDate(worker1.getHired().getTime()))
+                .append("\" fired=\"")
+                .append(reportDate.formatDate(worker1.getFired().getTime()))
+                .append("\" salary=\"100.0\"/>")
+                .append("<employee name=\"Ivan2\" hired=\"")
+                .append(reportDate.formatDate(worker2.getHired().getTime()))
+                .append("\" fired=\"")
+                .append(reportDate.formatDate(worker2.getFired().getTime()))
+                .append("\" salary=\"90.0\"/>")
+                .append("<employee name=\"Ivan3\" hired=\"")
+                .append(reportDate.formatDate(worker3.getHired().getTime()))
+                .append("\" fired=\"")
+                .append(reportDate.formatDate(worker3.getFired().getTime()))
+                .append("\" salary=\"80.0\"/></employees>");
         assertThat(engine.generate(em -> true), is(expect.toString()));
     }
 }

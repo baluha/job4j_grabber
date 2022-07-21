@@ -7,7 +7,7 @@ import java.util.function.Predicate;
 public class ReportJsonSerialization implements Report {
 
     private Store store;
-
+    ObjectMapper objectMapper = new ObjectMapper();
 
     public ReportJsonSerialization(Store store) {
         this.store = store;
@@ -15,7 +15,6 @@ public class ReportJsonSerialization implements Report {
 
     @Override
     public String generate(Predicate<Employee> filter) {
-        ObjectMapper objectMapper = new ObjectMapper();
         StringBuilder text = new StringBuilder();
         text.append("Name; Hired; Fired; Salary;");
         store.findBy(filter).forEach(e -> {

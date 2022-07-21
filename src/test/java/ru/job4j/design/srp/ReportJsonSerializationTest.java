@@ -23,22 +23,22 @@ public class ReportJsonSerializationTest {
         store.add(worker1);
         Report engine = new ReportJsonSerialization(store);
         StringBuilder expect = new StringBuilder();
-        expect.append("Name; Hired; Fired; Salary;"
-                + "{\"name\":\"Ivan\",\"hired\":"
-                + worker1.getHired().getTimeInMillis() + ","
-                + "\"fired\":"
-                + worker1.getFired().getTimeInMillis() + ","
-                + "\"salary\":90.0}"
-                + "{\"name\":\"Ivan\",\"hired\":"
-                + worker2.getHired().getTimeInMillis() + ","
-                + "\"fired\":"
-                + worker2.getHired().getTimeInMillis() + ","
-                + "\"salary\":80.0}"
-                + "{\"name\":\"Ivan\",\"hired\":"
-                + worker3.getHired().getTimeInMillis() + ","
-                + "\"fired\":"
-                + worker3.getHired().getTimeInMillis() + ","
-                + "\"salary\":100.0}");
+        expect.append("Name; Hired; Fired; Salary;")
+                .append("{\"name\":\"Ivan\",\"hired\":")
+                .append(worker1.getHired().getTimeInMillis())
+                .append(",").append("\"fired\":")
+                .append(worker1.getFired().getTimeInMillis())
+                .append(",").append("\"salary\":90.0}")
+                .append("{\"name\":\"Ivan\",\"hired\":")
+                .append(worker2.getHired().getTimeInMillis())
+                .append(",").append("\"fired\":")
+                .append(worker2.getHired().getTimeInMillis())
+                .append(",").append("\"salary\":80.0}")
+                .append("{\"name\":\"Ivan\",\"hired\":")
+                .append(worker3.getHired().getTimeInMillis())
+                .append(",").append("\"fired\":")
+                .append(worker3.getHired().getTimeInMillis())
+                .append(",").append("\"salary\":100.0}");
         assertThat(engine.generate(em -> true), is(expect.toString()));
     }
 }
