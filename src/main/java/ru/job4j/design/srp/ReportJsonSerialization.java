@@ -7,23 +7,17 @@ import java.util.function.Predicate;
 public class ReportJsonSerialization implements Report {
 
     private Store store;
-    ObjectMapper objectMapper = new ObjectMapper();
+    private ObjectMapper objectMapper;
 
     public ReportJsonSerialization(Store store) {
+        this.objectMapper = new ObjectMapper();
         this.store = store;
     }
 
     @Override
-    public String generate(Predicate<Employee> filter) {
+    public String generate(Predicate<Employee> filter) throws JsonProcessingException {
         StringBuilder text = new StringBuilder();
-        text.append("Name; Hired; Fired; Salary;");
-        store.findBy(filter).forEach(e -> {
-            try {
-                text.append(objectMapper.writeValueAsString(e));
-            } catch (JsonProcessingException jsonProcessingException) {
-                jsonProcessingException.printStackTrace();
-            }
-        });
+        text.append(objectMapper.writeValueAsString(store.findBy(filter)));
         return text.toString();
     }
 }

@@ -1,5 +1,6 @@
 package ru.job4j.design.srp;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.Test;
 
 import javax.xml.bind.JAXBException;
@@ -23,22 +24,21 @@ public class ReportJsonSerializationTest {
         store.add(worker1);
         Report engine = new ReportJsonSerialization(store);
         StringBuilder expect = new StringBuilder();
-        expect.append("Name; Hired; Fired; Salary;")
-                .append("{\"name\":\"Ivan\",\"hired\":")
+        expect.append("[{\"name\":\"Ivan\",\"hired\":")
                 .append(worker1.getHired().getTimeInMillis())
                 .append(",").append("\"fired\":")
                 .append(worker1.getFired().getTimeInMillis())
-                .append(",").append("\"salary\":90.0}")
+                .append(",").append("\"salary\":90.0},")
                 .append("{\"name\":\"Ivan\",\"hired\":")
                 .append(worker2.getHired().getTimeInMillis())
                 .append(",").append("\"fired\":")
                 .append(worker2.getHired().getTimeInMillis())
-                .append(",").append("\"salary\":80.0}")
+                .append(",").append("\"salary\":80.0},")
                 .append("{\"name\":\"Ivan\",\"hired\":")
                 .append(worker3.getHired().getTimeInMillis())
                 .append(",").append("\"fired\":")
                 .append(worker3.getHired().getTimeInMillis())
-                .append(",").append("\"salary\":100.0}");
+                .append(",").append("\"salary\":100.0}]");
         assertThat(engine.generate(em -> true), is(expect.toString()));
     }
 }

@@ -24,8 +24,7 @@ public class ReportXmlSerializationTest {
         store.add(worker3);
         Report engine = new ReportXmlSerialization(store);
         StringBuilder expect = new StringBuilder();
-        expect.append("Name; Hired; Fired; Salary;")
-                .append("<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?><employees>")
+        expect.append("<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?><employees>")
                 .append("<employee name=\"Ivan1\" hired=\"")
                 .append(reportDate.formatDate(worker1.getHired().getTime()))
                 .append("\" fired=\"")

@@ -10,18 +10,18 @@ import java.util.function.Predicate;
 public class ReportXmlSerialization implements Report {
 
     private Store store;
-
-    JAXBContext context = JAXBContext.newInstance(Employees.class);
-    Marshaller marshaller = context.createMarshaller();
+    private JAXBContext context;
+    private Marshaller marshaller;
 
     public ReportXmlSerialization(Store store) throws JAXBException {
         this.store = store;
+        this.context = JAXBContext.newInstance(Employees.class);
+        this.marshaller = context.createMarshaller();
     }
 
     @Override
     public String generate(Predicate<Employee> filter) throws JAXBException, IOException {
         StringBuilder text = new StringBuilder();
-        text.append("Name; Hired; Fired; Salary;");
         Employees emp = new Employees(store.findBy(filter));
         try (StringWriter sw = new StringWriter()) {
             marshaller.marshal(emp, sw);
