@@ -12,7 +12,7 @@ public interface Store {
     boolean accept(Food food) throws ParseException;
 
     default float getPercent(Food food) throws ParseException {
-        long a = ChronoUnit.DAYS.between(food.getCreateDate(), LocalDate.of(2022, 7, 12));
+        long a = ChronoUnit.DAYS.between(food.getCreateDate(), LocalDate.now());
         long b = ChronoUnit.DAYS.between(food.getCreateDate(), food.getExpiryDate());
         return  ((float) a / b) * 100;
     }

@@ -13,15 +13,11 @@ public class ControlQuality {
     }
 
     public void add(List<Food> food) throws ParseException {
-        lst.forEach(store -> {
-            food.forEach(f -> {
-                try {
-                    store.add(f);
-                } catch (ParseException e) {
-                    e.printStackTrace();
-                }
-            });
-        });
+        for (Store store : lst) {
+            for (Food f : food) {
+                store.add(f);
+            }
+        }
         }
 
     public List<Store> getLst() {

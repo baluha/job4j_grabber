@@ -13,11 +13,9 @@ public class Shop implements Store {
         boolean rsl = false;
         float spoilage = getPercent(food);
         if (accept(food)) {
-            foodList.add(food);
-            rsl = true;
-        }
-        if (!accept(food) && spoilage > Percent.MAX75 && spoilage <= Percent.SPOILED) {
-            food.setPrice(food.getPrice() * food.getDiscount());
+            if (spoilage > Percent.MAX75 && spoilage <= Percent.SPOILED) {
+                food.setPrice(food.getPrice() * food.getDiscount());
+            }
             foodList.add(food);
             rsl = true;
         }
@@ -27,7 +25,7 @@ public class Shop implements Store {
     @Override
     public boolean accept(Food food) throws ParseException {
         float spoilage = getPercent(food);
-        return spoilage < Percent.MAX75 && spoilage > Percent.QUARTER;
+        return spoilage < Percent.HUNDRED && spoilage >= Percent.QUARTER;
     }
 
     public List<Food> getFoodList() {
