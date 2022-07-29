@@ -5,5 +5,5 @@ import java.io.IOException;
 import java.util.function.Predicate;
 
 public interface Report {
-    String generate(Predicate<Employee> filter) throws JAXBException, IOException;
+    String generate(Predicate<Employee> filter);
 }

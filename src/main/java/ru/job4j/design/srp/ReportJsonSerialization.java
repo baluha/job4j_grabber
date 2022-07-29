@@ -15,9 +15,13 @@ public class ReportJsonSerialization implements Report {
     }
 
     @Override
-    public String generate(Predicate<Employee> filter) throws JsonProcessingException {
+    public String generate(Predicate<Employee> filter) {
         StringBuilder text = new StringBuilder();
-        text.append(objectMapper.writeValueAsString(store.findBy(filter)));
+        try {
+            text.append(objectMapper.writeValueAsString(store.findBy(filter)));
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+        }
         return text.toString();
     }
 }
