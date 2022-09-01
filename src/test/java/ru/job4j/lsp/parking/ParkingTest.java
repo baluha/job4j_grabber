@@ -7,7 +7,7 @@ public class ParkingTest {
 
     @Test
     public void whenTrackParkingEmptyAndFull() {
-        Parck parck = new Parking(5,0);
+        Parck parck = new Parking(5, 0);
         Car track = new Track(2, "aaa");
         Car track1 = new Track(2, "bbb");
         Car track2 = new Track(2, "ccc");
@@ -18,7 +18,7 @@ public class ParkingTest {
 
     @Test
     public void whenTrackInSedanPlace() {
-        Parck parck = new Parking(0,4);
+        Parck parck = new Parking(0, 4);
         Car track = new Track(2, "aaa");
         Car track1 = new Track(2, "bbb");
         assertTrue(parck.add(track));
@@ -27,9 +27,9 @@ public class ParkingTest {
 
     @Test
     public void whenCarsHaveSameNumbers() {
-        Parck parck = new Parking(0,4);
+        Parck parck = new Parking(0, 4);
         Car track = new Track(2, "aaa");
-        Car track1 = new Sedan( "aaa");
+        Car track1 = new Sedan("aaa");
         assertTrue(parck.add(track));
         assertFalse(parck.add(track1));
     }

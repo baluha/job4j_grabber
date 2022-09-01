@@ -4,7 +4,7 @@ import java.util.Objects;
 
 public class Sedan implements Car {
 
-    private static final int sizeOfCar = 1;
+    private static final int SIZEOFCAR = 1;
     private final String carNumber;
 
     public Sedan(String carNumber) {
@@ -16,7 +16,7 @@ public class Sedan implements Car {
 
     @Override
     public int getSizeOfCar() {
-        return sizeOfCar;
+        return SIZEOFCAR;
     }
 
     @Override
@@ -26,8 +26,12 @@ public class Sedan implements Car {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
         Sedan sedan = (Sedan) o;
         return Objects.equals(carNumber, sedan.carNumber);
     }

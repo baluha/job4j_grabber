@@ -16,12 +16,12 @@ public class Parking implements Parck {
     private boolean placeValidator(Car car) {
         boolean rsl = true;
         for (Car cars : tracks) {
-            if(cars.getNumOfCar().equals(car.getNumOfCar())) {
+            if (cars.getNumOfCar().equals(car.getNumOfCar())) {
                 rsl = false;
             }
         }
         for (Car cars : sedan) {
-            if(cars.getNumOfCar().equals(car.getNumOfCar())) {
+            if (cars.getNumOfCar().equals(car.getNumOfCar())) {
                 rsl = false;
             }
         }
