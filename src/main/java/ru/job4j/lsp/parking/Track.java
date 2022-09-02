@@ -18,6 +18,10 @@ public class Track implements Car {
         this.carNumber = carNumber;
     }
 
+    public Track(String carNumber) {
+        this.carNumber = carNumber;
+    }
+
     public Track() {
     }
 
