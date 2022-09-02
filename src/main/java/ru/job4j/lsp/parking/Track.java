@@ -4,8 +4,8 @@ import java.util.Objects;
 
 public class Track implements Car {
 
-    private final int size;
-    private final String carNumber;
+    private int size;
+    private String carNumber;
 
     public Track(int size, String carNumber) {
         if (size <= 1) {
@@ -16,6 +16,9 @@ public class Track implements Car {
         }
         this.size = size;
         this.carNumber = carNumber;
+    }
+
+    public Track() {
     }
 
     @Override

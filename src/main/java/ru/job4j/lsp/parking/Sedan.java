@@ -5,13 +5,16 @@ import java.util.Objects;
 public class Sedan implements Car {
 
     private static final int SIZEOFCAR = 1;
-    private final String carNumber;
+    private String carNumber;
 
     public Sedan(String carNumber) {
         if (carNumber.length() < 3) {
             throw new IllegalArgumentException("Car number not correct");
         }
         this.carNumber = carNumber;
+    }
+
+    public Sedan() {
     }
 
     @Override
