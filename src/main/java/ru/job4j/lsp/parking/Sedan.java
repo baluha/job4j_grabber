@@ -4,11 +4,12 @@ import java.util.Objects;
 
 public class Sedan implements Car {
 
-    private static final int SIZEOFCAR = 1;
+    public static final int SIZEOFCAR = 1;
     private String carNumber;
+    private static final int NUMLEN = 3;
 
     public Sedan(String carNumber) {
-        if (carNumber.length() < 3) {
+        if (carNumber.length() < NUMLEN) {
             throw new IllegalArgumentException("Car number not correct");
         }
         this.carNumber = carNumber;

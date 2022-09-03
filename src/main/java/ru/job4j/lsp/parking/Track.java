@@ -6,12 +6,13 @@ public class Track implements Car {
 
     private int size;
     private String carNumber;
+    private static final int NUMLEN = 3;
 
     public Track(int size, String carNumber) {
-        if (size <= 1) {
+        if (size <= Sedan.SIZEOFCAR) {
             throw new IllegalArgumentException("So small for track!");
         }
-        if (carNumber.length() < 3) {
+        if (carNumber.length() < NUMLEN) {
             throw new IllegalArgumentException("Car number not correct");
         }
         this.size = size;

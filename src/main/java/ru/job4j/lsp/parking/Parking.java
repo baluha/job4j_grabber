@@ -3,62 +3,64 @@ import java.util.HashSet;
 import java.util.Set;
 
 public class Parking implements Parck {
-    private Set<Car> tracks = new HashSet<>();
-    private Set<Car> sedan = new HashSet<>();
+    private Set<Car> tracks;
+    private Set<Car> sedan;
     private int sizeParckTrack;
     private int sizeParckSedan;
 
-    public Parking(int sizeParckTrack, int sizeParckSedan) {
-        this.sizeParckTrack = sizeParckTrack;
+    public Parking(int sizeParckSedan, int sizeParckTrack) {
         this.sizeParckSedan = sizeParckSedan;
+        this.sizeParckTrack = sizeParckTrack;
+        tracks = new HashSet<>();
+        sedan = new HashSet<>();
     }
 
     private boolean placeValidator(Car car) {
-        boolean rsl = true;
         for (Car cars : tracks) {
             if (cars.getNumOfCar().equals(car.getNumOfCar())) {
-                rsl = false;
+                return false;
             }
         }
         for (Car cars : sedan) {
             if (cars.getNumOfCar().equals(car.getNumOfCar())) {
-                rsl = false;
+                return false;
             }
         }
-        return rsl;
+        return true;
     }
 
     private boolean sizeValidator(Car car) {
-        if (car.getSizeOfCar() == 1 && sizeParckSedan > 0 && placeValidator(car)) {
-            return true;
-        } else {
-            return (car.getSizeOfCar() > 1
-                    && sizeParckTrack >= car.getSizeOfCar()
-                    && placeValidator(car))
-                    || (car.getSizeOfCar() > 1
-                    && sizeParckSedan >= car.getSizeOfCar()
-                    && placeValidator(car));
-        }
+        if (placeValidator(car)) {
+            if (car.getSizeOfCar() == Sedan.SIZEOFCAR && sizeParckSedan > 0) {
+                return true;
+            } else {
+                return (car.getSizeOfCar() > Sedan.SIZEOFCAR
+                        && sizeParckTrack >= car.getSizeOfCar())
+                        || (car.getSizeOfCar() > Sedan.SIZEOFCAR
+                        && sizeParckSedan >= car.getSizeOfCar());
+            }
+       }
+        return false;
     }
+
 
     public boolean add(Car car) {
         boolean rsl = false;
-        if (car.getSizeOfCar() == 1
-                && sizeParckSedan > 0
-                && sizeValidator(car)) {
-            sizeParckSedan = sizeParckSedan - car.getSizeOfCar();
-            rsl = sedan.add(car);
-        } else if (car.getSizeOfCar() > 1
-                && sizeParckTrack >= car.getSizeOfCar()
-                && sizeValidator(car)) {
-            sizeParckTrack = sizeParckTrack - car.getSizeOfCar();
-            rsl = tracks.add(car);
-        } else if (car.getSizeOfCar() > 1
-                && sizeParckTrack < car.getSizeOfCar()
-                && getSizeParckSedan() >= car.getSizeOfCar()
-                && sizeValidator(car)) {
-            sizeParckSedan = sizeParckSedan - car.getSizeOfCar();
-            rsl = sedan.add(car);
+        if (sizeValidator(car)) {
+            if (car.getSizeOfCar() == Sedan.SIZEOFCAR
+                    && sizeParckSedan > 0) {
+                sizeParckSedan--;
+                rsl = sedan.add(car);
+            } else if (car.getSizeOfCar() > Sedan.SIZEOFCAR
+                    && sizeParckTrack >= car.getSizeOfCar()) {
+                sizeParckTrack = sizeParckTrack - car.getSizeOfCar();
+                rsl = tracks.add(car);
+            } else if (car.getSizeOfCar() > Sedan.SIZEOFCAR
+                    && sizeParckTrack < car.getSizeOfCar()
+                    && getSizeParckSedan() >= car.getSizeOfCar()) {
+                sizeParckSedan = sizeParckSedan - car.getSizeOfCar();
+                rsl = sedan.add(car);
+            }
         }
         return rsl;
     }
