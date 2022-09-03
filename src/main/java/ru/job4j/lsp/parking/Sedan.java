@@ -5,14 +5,14 @@ import java.util.Objects;
 public class Sedan implements Car {
 
     public static final int SIZEOFCAR = 1;
-    private String carNumber;
+    private String numOfCar;
     private static final int NUMLEN = 3;
 
     public Sedan(String carNumber) {
         if (carNumber.length() < NUMLEN) {
             throw new IllegalArgumentException("Car number not correct");
         }
-        this.carNumber = carNumber;
+        this.numOfCar = carNumber;
     }
 
     public Sedan() {
@@ -25,7 +25,7 @@ public class Sedan implements Car {
 
     @Override
     public String getNumOfCar() {
-        return this.carNumber;
+        return this.numOfCar;
     }
 
     @Override
@@ -37,11 +37,11 @@ public class Sedan implements Car {
             return false;
         }
         Sedan sedan = (Sedan) o;
-        return Objects.equals(carNumber, sedan.carNumber);
+        return Objects.equals(numOfCar, sedan.numOfCar);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(carNumber);
+        return Objects.hash(numOfCar);
     }
 }

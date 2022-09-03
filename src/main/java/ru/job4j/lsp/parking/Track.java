@@ -5,7 +5,7 @@ import java.util.Objects;
 public class Track implements Car {
 
     private int size;
-    private String carNumber;
+    private String numOfCar;
     private static final int NUMLEN = 3;
 
     public Track(int size, String carNumber) {
@@ -16,11 +16,11 @@ public class Track implements Car {
             throw new IllegalArgumentException("Car number not correct");
         }
         this.size = size;
-        this.carNumber = carNumber;
+        this.numOfCar = carNumber;
     }
 
     public Track(String carNumber) {
-        this.carNumber = carNumber;
+        this.numOfCar = carNumber;
     }
 
     public Track() {
@@ -33,7 +33,7 @@ public class Track implements Car {
 
     @Override
     public String getNumOfCar() {
-        return this.carNumber;
+        return this.numOfCar;
     }
 
     @Override
@@ -45,11 +45,11 @@ public class Track implements Car {
             return false;
         }
         Track track = (Track) o;
-        return Objects.equals(carNumber, track.carNumber);
+        return Objects.equals(numOfCar, track.numOfCar);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(carNumber);
+        return Objects.hash(numOfCar);
     }
 }
