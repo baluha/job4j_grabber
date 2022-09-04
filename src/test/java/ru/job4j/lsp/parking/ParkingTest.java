@@ -26,15 +26,6 @@ public class ParkingTest {
     }
 
     @Test
-    public void whenCarsHaveSameNumbers() {
-        Parck parck = new Parking(4, 0);
-        Car track = new Track(2, "aaa");
-        Car track1 = new Sedan("aaa");
-        assertTrue(parck.add(track));
-        assertFalse(parck.add(track1));
-    }
-
-    @Test
     public void whenParkingIsFull() {
         Parck parck = new Parking(4, 0);
         Car track = new Track(2, "aaa");

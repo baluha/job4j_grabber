@@ -11,42 +11,17 @@ public class Parking implements Parck {
     public Parking(int sizeParckSedan, int sizeParckTrack) {
         this.sizeParckSedan = sizeParckSedan;
         this.sizeParckTrack = sizeParckTrack;
-        tracks = new HashSet<>();
-        sedan = new HashSet<>();
+        tracks = new HashSet<>(sizeParckTrack);
+        sedan = new HashSet<>(sizeParckSedan);
     }
 
     private boolean placeValidator(Car car) {
-        for (Car cars : tracks) {
-            if (cars.getNumOfCar().equals(car.getNumOfCar())) {
-                return false;
-            }
-        }
-        for (Car cars : sedan) {
-            if (cars.getNumOfCar().equals(car.getNumOfCar())) {
-                return false;
-            }
-        }
-        return true;
+        return !tracks.contains(car) || !sedan.contains(car);
     }
-
-    private boolean sizeValidator(Car car) {
-        if (placeValidator(car)) {
-            if (car.getSizeOfCar() == Sedan.SIZEOFCAR && sizeParckSedan > 0) {
-                return true;
-            } else {
-                return (car.getSizeOfCar() > Sedan.SIZEOFCAR
-                        && sizeParckTrack >= car.getSizeOfCar())
-                        || (car.getSizeOfCar() > Sedan.SIZEOFCAR
-                        && sizeParckSedan >= car.getSizeOfCar());
-            }
-       }
-        return false;
-    }
-
 
     public boolean add(Car car) {
         boolean rsl = false;
-        if (sizeValidator(car)) {
+        if (placeValidator(car)) {
             if (car.getSizeOfCar() == Sedan.SIZEOFCAR
                     && sizeParckSedan > 0) {
                 sizeParckSedan--;
