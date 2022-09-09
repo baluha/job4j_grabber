@@ -24,6 +24,7 @@ public class ControlQuality {
     public void resort() throws ParseException {
         List<Food> foods = lst.stream().map(Store::getFoodList)
                 .flatMap(Collection::stream).collect(Collectors.toList());
+        lst.forEach(l -> l.getFoodList().clear());
         add(foods);
     }
     public List<Store> getLst() {
