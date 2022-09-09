@@ -2,7 +2,9 @@ package ru.job4j.lsp;
 
 import java.text.ParseException;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class ControlQuality {
 
@@ -19,7 +21,11 @@ public class ControlQuality {
             }
         }
         }
-
+    public void resort() throws ParseException {
+        List<Food> foods = lst.stream().map(Store::getFoodList)
+                .flatMap(Collection::stream).collect(Collectors.toList());
+        add(foods);
+    }
     public List<Store> getLst() {
         return new ArrayList<>(lst);
     }
