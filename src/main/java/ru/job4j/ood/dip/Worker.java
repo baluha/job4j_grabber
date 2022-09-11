@@ -9,8 +9,13 @@ public class Worker {
 }
 
 class Job {
+    public void makingJob(Worker worker) {
+        worker.doJob();
+    }
+
     public static void main(String[] args) {
         Worker worker = new Worker();
-        worker.doJob();
+        Job job = new Job();
+        job.makingJob(worker);
     }
 }
