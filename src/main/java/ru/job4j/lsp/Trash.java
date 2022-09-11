@@ -26,6 +26,13 @@ public class Trash implements Store {
         return spoilage >= Percent.HUNDRED;
     }
 
+    @Override
+    public List<Food> clear() {
+        List<Food> del = foodList;
+        this.foodList.clear();
+        return del;
+    }
+
     public List<Food> getFoodList() {
         return new ArrayList<>(foodList);
     }

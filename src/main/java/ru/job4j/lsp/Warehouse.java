@@ -24,6 +24,13 @@ public class Warehouse implements Store {
         return getPercent(food) < Percent.QUARTER;
     }
 
+    @Override
+    public List<Food> clear() {
+        List<Food> del = foodList;
+        this.foodList.clear();
+        return del;
+    }
+
     public List<Food> getFoodList() {
         return new ArrayList<>(foodList);
     }

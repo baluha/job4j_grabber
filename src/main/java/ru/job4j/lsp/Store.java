@@ -11,6 +11,8 @@ public interface Store {
 
     boolean accept(Food food) throws ParseException;
 
+    List<Food> clear();
+
     default float getPercent(Food food) throws ParseException {
         long a = ChronoUnit.DAYS.between(food.getCreateDate(), LocalDate.now());
         long b = ChronoUnit.DAYS.between(food.getCreateDate(), food.getExpiryDate());
