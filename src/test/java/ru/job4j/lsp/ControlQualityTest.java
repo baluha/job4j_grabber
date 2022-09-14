@@ -100,5 +100,4 @@ public class ControlQualityTest {
         assertThat(warehouse.getFoodList(), is(List.of(milk3, grachka3, berry3)));
         assertThat(shop.getFoodList(), is(List.of(milk2, grachka2, berry2)));
     }
-
 }

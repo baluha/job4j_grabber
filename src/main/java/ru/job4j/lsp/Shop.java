@@ -30,7 +30,7 @@ public class Shop implements Store {
 
     @Override
     public List<Food> clear() {
-        List<Food> del = foodList;
+        List<Food> del = new ArrayList<>(foodList);
         this.foodList.clear();
         return del;
     }

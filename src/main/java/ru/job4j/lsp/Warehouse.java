@@ -20,13 +20,12 @@ public class Warehouse implements Store {
 
     @Override
     public boolean accept(Food food) throws ParseException {
-        /*System.out.println(getPercent(food));*/
         return getPercent(food) < Percent.QUARTER;
     }
 
     @Override
     public List<Food> clear() {
-        List<Food> del = foodList;
+        List<Food> del = new ArrayList<>(foodList);
         this.foodList.clear();
         return del;
     }
