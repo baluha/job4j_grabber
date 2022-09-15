@@ -26,6 +26,10 @@ public class PasswordValidator {
             throw new IllegalArgumentException("Must be at least one special symbol");
         }
 
+        if (subStrings(password)) {
+            throw new IllegalArgumentException("Wrong password!");
+        }
+
         return "password correct";
 
     }
@@ -59,11 +63,22 @@ public class PasswordValidator {
         }
         return false;
     }
+
     private static boolean specialChars(String password) {
         String specialChars = "/*!@#$%^&*()\"{}_[]|\\?/<>,.";
         for (int i = 0; i < password.length(); i++) {
             String[] st = password.split("");
             if (specialChars.contains(st[i])) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private static boolean subStrings(String password) {
+        String[] subS = new String[] {"qwerty", "12345", "password", "user", "admin"};
+        for (String st: subS) {
+            if (password.toLowerCase().contains(st)) {
                 return true;
             }
         }

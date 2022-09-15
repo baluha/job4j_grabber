@@ -31,4 +31,9 @@ public class PasswordValidatorTest {
         PasswordValidator.validate("ASF7DGSERTSasdfa");
     }
 
+    @Test(expected = IllegalArgumentException.class)
+    public void whenSubString() {
+        PasswordValidator.validate("ASF7*Sasdfa12345");
+    }
+
 }
