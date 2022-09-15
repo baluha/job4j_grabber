@@ -19,10 +19,13 @@ public class ControlQuality {
             }
         }
         }
+
     public void resort() throws ParseException {
+        List<Food> tmpFood = new ArrayList<>();
         for (Store store: lst) {
-            add(store.clear());
+            tmpFood.addAll(store.clear());
         }
+        add(tmpFood);
     }
 
     public List<Store> getLst() {
